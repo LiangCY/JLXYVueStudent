@@ -12,4 +12,4 @@ let app = Vue.extend({})
 
 routerMap(router)
 
-router.start(app, '#app')
+router.start(app, 'body')

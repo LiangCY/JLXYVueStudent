@@ -1,7 +1,6 @@
 'use strict'
 
 import App from './views/App'
-import Hi from './views/Hi'
 import Login from './views/Login'
 
 export default function (router) {
@@ -13,10 +12,6 @@ export default function (router) {
     '/login': {
       name: 'login',
       component: Login
-    },
-    '/hello': {
-      name: 'hello',
-      component: Hi
     },
     /* 404路由 */
     '*': {
