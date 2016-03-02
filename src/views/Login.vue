@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-on="http://www.w3.org/1999/xhtml">
     <form>
         <div class="form-group">
             <label for="username">用户名</label>
@@ -29,7 +29,7 @@
                 }).then(function (response) {
                     let data = response.data;
                     if (data.error == 0) {
-                        console.log(data);
+                        window.localStorage.setItem("jlxy_token", data.token)
                         this.$router.go('/')
                     } else {
                         notie.alert(3, data.message, 2)
@@ -41,15 +41,3 @@
         }
     }
 </script>
-<style>
-    html {
-        height: 100%;
-    }
-
-    body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-</style>
