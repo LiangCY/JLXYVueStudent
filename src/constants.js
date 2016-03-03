@@ -1,10 +1,12 @@
 const URL_BASE = 'http://114.212.113.228:3061'
 
 const URL_LOGIN = URL_BASE + '/login'
+const URL_USER_BASIC = URL_BASE + '/user_basic'
 const URL_EVENTS = URL_BASE + '/events'
 
 export {
   URL_LOGIN,
-  URL_EVENTS
+  URL_USER_BASIC,
+  URL_EVENTS,
 }
 

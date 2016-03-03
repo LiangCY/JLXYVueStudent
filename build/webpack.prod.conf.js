@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var config = require('./webpack.base.conf')
+var cssLoaders = require('./css-loaders')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -14,25 +15,13 @@ var SOURCE_MAP = true
 
 config.devtool = SOURCE_MAP ? 'source-map' : false
 
-// generate loader string to be used with extract text plugin
-function generateExtractLoaders (loaders) {
-  return loaders.map(function (loader) {
-    return loader + '-loader' + (SOURCE_MAP ? '?sourceMap' : '')
-  }).join('!')
-}
-
-// http://vuejs.github.io/vue-loader/configurations/extract-css.html
-var cssExtractLoaders = {
-  css: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css'])),
-  less: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'less'])),
-  sass: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'sass'])),
-  stylus: ExtractTextPlugin.extract('vue-style-loader', generateExtractLoaders(['css', 'stylus']))
-}
-
 config.vue = config.vue || {}
 config.vue.loaders = config.vue.loaders || {}
-Object.keys(cssExtractLoaders).forEach(function (key) {
-  config.vue.loaders[key] = cssExtractLoaders[key]
+cssLoaders({
+  sourceMap: SOURCE_MAP,
+  extract: true
+}).forEach(function (loader) {
+  config.vue.loaders[loader.key] = loader.value
 })
 
 config.plugins = (config.plugins || []).concat([
@@ -51,11 +40,11 @@ config.plugins = (config.plugins || []).concat([
   // extract css into its own file
   new ExtractTextPlugin('[name].[contenthash].css'),
   // generate dist index.html with correct asset hash for caching.
-  // you can customize output by editing /src/index.html
+  // you can customize output by editing /index.html
   // see https://github.com/ampedandwired/html-webpack-plugin
   new HtmlWebpackPlugin({
     filename: '../index.html',
-    template: 'src/index.html',
+    template: 'index.html',
     inject: true,
     minify: {
       removeComments: true,

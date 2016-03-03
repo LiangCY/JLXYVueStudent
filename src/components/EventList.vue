@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import notie from 'notie'
     import {URL_EVENTS} from '../constants'
     export default {
         data () {
@@ -35,15 +36,15 @@
         methods: {
             fetchEvents(){
                 this.$http.get(URL_EVENTS).then(function (response) {
-                    let data = response.data;
-                    console.log(data)
+                    let data = response.data
                     if (data.error == 0) {
-                        this.events = data.events;
+                        this.events = data.events
+                        console.log(data.events);
                     } else {
-//                    notie.alert(3, data.message, 2)
+                        notie.alert(3, data.message, 2)
                     }
                 }, function () {
-//                notie.alert(3, '请求失败', 2)
+                    notie.alert(3, '请求失败', 2)
                 })
             }
         }
@@ -52,10 +53,6 @@
 </script>
 
 <style>
-    body {
-        background-color: #DEDEDE;
-    }
-
     .event-item {
         display: flex;
         margin: 10px 8px 0;
@@ -71,6 +68,7 @@
     }
 
     .event-item .avatar {
+        margin-top: 0;
         width: 40px;
         height: 40px;
         border-radius: 8px;
@@ -84,6 +82,8 @@
     }
 
     .event-item .content {
+        margin-top: 0;
+        margin-bottom: 0;
         flex: 1;
         margin-left: 8px;
         align-items: center;
@@ -96,6 +96,7 @@
     .event-item .author .name {
         font-size: 15px;
         font-weight: bold;
+        color: black;
     }
 
     .event-item .author .date {
