@@ -55,7 +55,7 @@
                     this.refreshing = false;
                     var self = this;
                     $('body').animate({scrollTop: 0}, 400, function () {
-                        notie.alert(1, '加载完成', 2);
+                        notie.alert(1, '加载完成', 1);
                         self.$parent.refreshing = false
                     });
                 }.bind(this))
