@@ -24,12 +24,12 @@
             return {
                 events: [],
                 hasMore: false,
-                loading: false,
+                refreshing: false,
                 loadingMore: false
             }
         },
         ready(){
-            this.fetchEvents();
+            this.load();
         },
         http: {
             headers: {
@@ -37,39 +37,51 @@
             }
         },
         methods: {
-            loadMore(){
-                if (this.loading || this.loadingMore) return
-                this.loadingMore = true
-                this.fetchEvents(this.events.length + 30, true)
+            load: function () {
+                this.fetchEvents(30, function (err, data) {
+                    if (err) return notie.alert(3, err, 2);
+                    this.events = data.events;
+                    this.hasMore = data.hasMore;
+                }.bind(this))
             },
-            fetchEvents(count, isLoadMore){
-                if (this.loading) return
-                this.loading = true
+            refresh: function () {
+                if (this.refreshing || this.loadingMore) return
+                this.refreshing = true
                 this.$parent.refreshing = true
-                count = count || 30;
+                this.fetchEvents(30, function (err, data) {
+                    if (err) return notie.alert(3, err, 2);
+                    this.events = data.events;
+                    this.hasMore = data.hasMore;
+                    this.refreshing = false;
+                    var self = this;
+                    $('body').animate({scrollTop: 0}, 400, function () {
+                        notie.alert(1, '加载完成', 2);
+                        self.$parent.refreshing = false
+                    });
+                }.bind(this))
+            },
+            loadMore: function () {
+                if (this.refreshing || this.loadingMore) return
+                this.loadingMore = true
+                this.$parent.refreshing = true
+                this.fetchEvents(this.events.length + 30, function (err, data) {
+                    if (err) return notie.alert(3, err, 2);
+                    this.events = data.events;
+                    this.hasMore = data.hasMore;
+                    this.loadingMore = false;
+                    this.$parent.refreshing = false
+                }.bind(this))
+            },
+            fetchEvents(count, callback){
                 this.$http.get(URL_EVENTS, {count: count}).then(function (response) {
                     let data = response.data
                     if (data.error == 0) {
-                        this.events = data.events
-                        this.hasMore = data.hasMore
-                        console.log(data.events)
+                        callback(null, data)
                     } else {
-                        notie.alert(3, data.message, 2)
-                    }
-                    this.loading = false
-                    this.$parent.refreshing = false
-                    if (isLoadMore) {
-                        this.loadingMore = false
-                    } else {
-                        $('html, body').animate({scrollTop: 0}, 500)
+                        callback(data.message)
                     }
                 }, function () {
-                    notie.alert(3, '请求失败', 2)
-                    this.loading = false
-                    this.$parent.refreshing = false
-                    if (isLoadMore) {
-                        this.loadingMore = false
-                    }
+                    callback('请求失败')
                 })
             }
         }
