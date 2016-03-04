@@ -1,6 +1,6 @@
 <template>
     <div class="user-panel">
-        <div class="avatar">
+        <div class="avatar" v-link="{ path: '/user' }">
             <img :src="'http://114.212.113.228/avatar/'+user.id" alt="">
         </div>
         <div class="content">
@@ -23,14 +23,13 @@
         ready(){
             this.fetchUser();
         },
-        http: {
-            headers: {
-                'x-access-token': window.localStorage.getItem("jlxy_token")
-            }
-        },
         methods: {
             fetchUser(){
-                this.$http.get(URL_USER_BASIC).then(function (response) {
+                this.$http.get(URL_USER_BASIC, {}, {
+                    headers: {
+                        'x-access-token': window.localStorage.getItem("jlxy_token")
+                    }
+                }).then(function (response) {
                     let data = response.data
                     if (data.error == 0) {
                         this.user = data.user

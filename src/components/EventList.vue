@@ -1,19 +1,22 @@
 <template>
-    <div class="event-item" v-for="event in events">
-        <div class="avatar">
-            <img :src="'http://114.212.113.228/avatar/'+event.userId">
-        </div>
-        <div class="content">
-            <div class="author">
-                <span class="name"> {{event.username}}</span>
+    <div class="event-list">
+        <div class="event-item" v-for="event in events">
+            <div class="avatar">
+                <img :src="'http://114.212.113.228/avatar/'+event.userId">
+            </div>
+            <div class="content">
+                <div class="author">
+                    <span class="name"> {{event.username}}</span>
                 <span class="date">
                     {{event.date}}
                 </span>
+                </div>
+                {{{event.content}}}
             </div>
-            {{{event.content}}}
         </div>
+        <div class="load-more" v-if="hasMore" v-on:click="loadMore">{{loadingMore?'加载中...':'加载更多'}}</div>
+        <div class="message" v-else>已无更多帖子</div>
     </div>
-    <div class="load-more" v-if="hasMore" v-on:click="loadMore">{{loadingMore?'加载中...':'加载更多'}}</div>
 </template>
 
 <script>
@@ -30,11 +33,6 @@
         },
         ready(){
             this.load();
-        },
-        http: {
-            headers: {
-                'x-access-token': window.localStorage.getItem("jlxy_token")
-            }
         },
         methods: {
             load: function () {
@@ -73,7 +71,11 @@
                 }.bind(this))
             },
             fetchEvents(count, callback){
-                this.$http.get(URL_EVENTS, {count: count}).then(function (response) {
+                this.$http.get(URL_EVENTS, {count: count}, {
+                    headers: {
+                        'x-access-token': window.localStorage.getItem("jlxy_token")
+                    }
+                }).then(function (response) {
                     let data = response.data
                     if (data.error == 0) {
                         callback(null, data)
@@ -136,14 +138,20 @@
         color: #888;
     }
 
-    .load-more {
+    .event-list .load-more {
         padding: 12px;
         color: #2b669a;
         text-align: center;
     }
 
-    .load-more:hover {
+    .event-list .load-more:hover {
         background-color: #DDD
+    }
+
+    .event-list .message {
+        padding: 8px;
+        color: #999;
+        text-align: center;
     }
 
 </style>
