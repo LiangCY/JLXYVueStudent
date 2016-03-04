@@ -13,6 +13,7 @@
             {{{event.content}}}
         </div>
     </div>
+    <div class="load-more" v-if="hasMore" v-on:click="loadMore">{{loadingMore?'加载中...':'加载更多'}}</div>
 </template>
 
 <script>
@@ -22,7 +23,9 @@
         data () {
             return {
                 events: [],
-                hasMore: false
+                hasMore: false,
+                loading: false,
+                loadingMore: false
             }
         },
         ready(){
@@ -34,17 +37,39 @@
             }
         },
         methods: {
-            fetchEvents(){
-                this.$http.get(URL_EVENTS).then(function (response) {
+            loadMore(){
+                if (this.loading || this.loadingMore) return
+                this.loadingMore = true
+                this.fetchEvents(this.events.length + 30, true)
+            },
+            fetchEvents(count, isLoadMore){
+                if (this.loading) return
+                this.loading = true
+                this.$parent.refreshing = true
+                count = count || 30;
+                this.$http.get(URL_EVENTS, {count: count}).then(function (response) {
                     let data = response.data
                     if (data.error == 0) {
                         this.events = data.events
-                        console.log(data.events);
+                        this.hasMore = data.hasMore
+                        console.log(data.events)
                     } else {
                         notie.alert(3, data.message, 2)
                     }
+                    this.loading = false
+                    this.$parent.refreshing = false
+                    if (isLoadMore) {
+                        this.loadingMore = false
+                    } else {
+                        $('html, body').animate({scrollTop: 0}, 500)
+                    }
                 }, function () {
                     notie.alert(3, '请求失败', 2)
+                    this.loading = false
+                    this.$parent.refreshing = false
+                    if (isLoadMore) {
+                        this.loadingMore = false
+                    }
                 })
             }
         }
@@ -55,11 +80,10 @@
 <style>
     .event-item {
         display: flex;
-        margin: 10px 8px 0;
-        padding: 8px;
+        padding: 12px;
         background-color: #FFF;
-        box-shadow: #888 2px 2px 5px;
-        border: 1px solid #ccc;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
         border-radius: 4px;
     }
 
@@ -68,10 +92,9 @@
     }
 
     .event-item .avatar {
-        margin-top: 0;
         width: 40px;
         height: 40px;
-        border-radius: 8px;
+        border-radius: 20px;
         overflow: hidden;
         display: inline-block;
     }
@@ -82,10 +105,8 @@
     }
 
     .event-item .content {
-        margin-top: 0;
-        margin-bottom: 0;
         flex: 1;
-        margin-left: 8px;
+        margin-left: 12px;
         align-items: center;
     }
 
@@ -94,7 +115,6 @@
     }
 
     .event-item .author .name {
-        font-size: 15px;
         font-weight: bold;
         color: black;
     }
@@ -102,6 +122,16 @@
     .event-item .author .date {
         margin-left: 4px;
         color: #888;
+    }
+
+    .load-more {
+        padding: 12px;
+        color: #2b669a;
+        text-align: center;
+    }
+
+    .load-more:hover {
+        background-color: #DDD
     }
 
 </style>

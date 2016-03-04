@@ -1,5 +1,5 @@
 <template>
-    <div class="panel">
+    <div class="user-panel">
         <div class="avatar">
             <img :src="'http://114.212.113.228/avatar/'+user.id" alt="">
         </div>
@@ -47,14 +47,15 @@
 </script>
 
 <style>
-    .panel {
-        background-color: #2b669a;
+    .user-panel {
+        background-color: #4CAF50;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 32px;
     }
 
-    .avatar {
+    .user-panel .avatar {
         margin-top: 24px;
         width: 80px;
         height: 80px;
@@ -62,22 +63,22 @@
         overflow: hidden;
     }
 
-    .avatar img {
+    .user-panel .avatar img {
         width: 80px;
         height: 80px;
     }
 
-    .content {
+    .user-panel .content {
         margin-top: 12px;
         margin-bottom: 12px;
     }
 
-    .content .name {
+    .user-panel .content .name {
         text-align: center;
         color: white;
     }
 
-    .content .number {
+    .user-panel .content .number {
         color: white;
     }
 </style>
