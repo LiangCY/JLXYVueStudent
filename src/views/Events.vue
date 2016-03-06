@@ -25,14 +25,6 @@
 </script>
 
 <style>
-    .material-icons.md-light {
-        color: rgba(255, 255, 255, 1);
-    }
-
-    .fade-enter, .fade-leave {
-        opacity: 0;
-    }
-
     .floating.button {
         display: flex;
         align-items: center;
