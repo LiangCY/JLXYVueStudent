@@ -1,6 +1,6 @@
 <template>
     <div v-if='!refreshing' transition='fade' class="floating button" v-on:click="refresh">
-        <i class="material-icons md-light">cached</i>
+        <i class="icono-sync"></i>
     </div>
     <event-list v-ref:list></event-list>
 </template>
@@ -25,7 +25,6 @@
 </script>
 
 <style>
-
     .material-icons.md-light {
         color: rgba(255, 255, 255, 1);
     }

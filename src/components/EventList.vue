@@ -21,6 +21,7 @@
 
 <script>
     import notie from 'notie'
+    import $ from 'jquery'
     import {URL_EVENTS} from '../constants'
     export default {
         data () {
