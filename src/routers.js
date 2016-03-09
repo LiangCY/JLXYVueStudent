@@ -5,6 +5,7 @@ import App from './views/App'
 import User from './views/User'
 import Events from './views/Events'
 import Lessons from './views/Lessons'
+import Lesson from './views/Lesson'
 
 export default function (router) {
   router.map({
@@ -30,6 +31,11 @@ export default function (router) {
     '/lessons': {
       name: 'lessons',
       component: Lessons,
+      auth: true
+    },
+    '/lesson/:lessonId': {
+      name: 'lesson',
+      component: Lesson,
       auth: true
     },
     /* 404路由 */

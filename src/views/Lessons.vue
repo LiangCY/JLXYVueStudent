@@ -8,14 +8,16 @@
                 您当前学期没有课程
             </div>
             <div class="weui_cells weui_cells_access" v-else>
-                <div class="weui_cell" v-for="lesson in lessons">
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <p>{{lesson.courseName}}</p>
-                    </div>
-                    <div class="weui_cell_ft">
-                        {{lesson.teachers}}
-                    </div>
-                </div>
+                <template v-for="lesson in lessons">
+                    <a class="weui_cell" v-link="{name:'lesson',params:{lessonId:lesson.id}}">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>{{lesson.courseName}}</p>
+                        </div>
+                        <div class="weui_cell_ft">
+                            {{lesson.teachers}}
+                        </div>
+                    </a>
+                </template>
             </div>
         </div>
     </div>

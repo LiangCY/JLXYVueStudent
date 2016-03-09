@@ -5,12 +5,14 @@ const URL_USER_BASIC = URL_BASE + '/user_basic'
 const URL_USER = URL_BASE + '/user'
 const URL_EVENTS = URL_BASE + '/events'
 const URL_LESSONS = URL_BASE + '/lessons'
+const URL_LESSON = URL_BASE + '/lesson/'
 
 export {
   URL_LOGIN,
   URL_USER_BASIC,
   URL_USER,
   URL_EVENTS,
-  URL_LESSONS
+  URL_LESSONS,
+  URL_LESSON
 }
 

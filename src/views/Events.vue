@@ -1,12 +1,15 @@
 <template>
-    <div v-if='!refreshing' transition='fade' class="floating button" v-on:click="refresh">
-        <i class="icono-sync"></i>
+    <div class="events-page">
+        <div v-if='!refreshing' transition='fade' class="floating button" v-on:click="refresh">
+            <i class="icono-sync"></i>
+        </div>
+        <event-list v-ref:list></event-list>
     </div>
-    <event-list v-ref:list></event-list>
 </template>
 
 <script>
     import EventList from '../components/EventList.vue';
+    import $ from 'jquery'
     export default {
         data(){
             return {
