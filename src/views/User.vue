@@ -2,7 +2,7 @@
     <div class="user-page">
         <div class="user-panel">
             <div class="avatar">
-                <img :src="'http://114.212.113.228/avatar/'+user.id" alt="">
+                <img :src="'http://219.219.117.114/avatar/'+user.id" alt="">
             </div>
             <div class="content">
                 <h4 class="name">{{user.name}}</h4>

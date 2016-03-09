@@ -1,7 +1,7 @@
 <template>
     <div class="user-panel">
         <div class="avatar" v-link="{ path: '/user' }">
-            <img :src="'http://114.212.113.228/avatar/'+user.id" alt="">
+            <img :src="'http://219.219.117.114/avatar/'+user.id" alt="">
         </div>
         <div class="content">
             <h4 class="name">{{user.name}}</h4>

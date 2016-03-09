@@ -2,7 +2,7 @@
     <div class="event-list">
         <div class="event-item" v-for="event in events">
             <div class="avatar">
-                <img :src="'http://114.212.113.228/avatar/'+event.userId">
+                <img :src="'http://219.219.117.114/avatar/'+event.userId">
             </div>
             <div class="content">
                 <div class="author">
