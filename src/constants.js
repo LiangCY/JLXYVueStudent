@@ -6,6 +6,8 @@ const URL_USER = URL_BASE + '/user'
 const URL_EVENTS = URL_BASE + '/events'
 const URL_LESSONS = URL_BASE + '/lessons'
 const URL_LESSON = URL_BASE + '/lesson/'
+const URL_TASKS = URL_BASE + '/tasks'
+const URL_TASK = URL_BASE + '/task/'
 
 export {
   URL_LOGIN,
@@ -13,6 +15,8 @@ export {
   URL_USER,
   URL_EVENTS,
   URL_LESSONS,
-  URL_LESSON
+  URL_LESSON,
+  URL_TASKS,
+  URL_TASK
 }
 
