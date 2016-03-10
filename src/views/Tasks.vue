@@ -9,7 +9,7 @@
             </div>
             <div class="weui_cells weui_cells_access" v-else>
                 <template v-for="task in tasks">
-                    <a class="weui_cell" v-link="{name:'task',params:{taskId:task.id}}">
+                    <a class="weui_cell" v-link="{name:'task',params:{taskId:task.taskId}}">
                         <div class="weui_cell_bd weui_cell_primary">
                             <p>{{task.taskTitle}}</p>
                         </div>
