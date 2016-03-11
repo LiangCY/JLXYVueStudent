@@ -54,7 +54,6 @@
                     this.loading = false;
                     let data = response.data
                     if (data.error == 0) {
-                        console.log(data)
                         this.task = data.task;
                     } else {
                         notie.alert(3, data.message, 2);

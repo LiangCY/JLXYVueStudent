@@ -8,6 +8,8 @@ import Lessons from './views/Lessons'
 import Lesson from './views/Lesson'
 import Tasks from './views/Tasks'
 import Task from './views/Task'
+import Resources from './views/Resources'
+import Resource from './views/Resource'
 
 export default function (router) {
   router.map({
@@ -48,6 +50,16 @@ export default function (router) {
     '/task/:taskId': {
       name: 'task',
       component: Task,
+      auth: true
+    },
+    '/resources': {
+      name: 'resources',
+      component: Resources,
+      auth: true
+    },
+    '/resource/:resourceId': {
+      name: 'resource',
+      component: Resource,
       auth: true
     },
     /* 404路由 */
