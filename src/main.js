@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import jwtDecode from 'jwt-decode'
 import routerMap from './routers'
 
 Vue.use(VueRouter)
@@ -10,8 +11,14 @@ let router = new VueRouter()
 
 router.beforeEach(transition => {
   if (transition.to.auth) {
-    if (window.localStorage.getItem('jlxy_token')) {
-      transition.next()
+    var token = window.localStorage.getItem('jlxy_token')
+    if (token) {
+      let decoded = jwtDecode(token)
+      if (decoded.exp <= Date.now()) {
+        transition.redirect('/login')
+      } else {
+        transition.next()
+      }
     } else {
       transition.redirect('/login')
     }
