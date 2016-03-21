@@ -10,6 +10,7 @@ import Tasks from './views/Tasks'
 import Task from './views/Task'
 import Resources from './views/Resources'
 import Resource from './views/Resource'
+import Messages from './views/Messages'
 
 export default function (router) {
   router.map({
@@ -60,6 +61,11 @@ export default function (router) {
     '/resource/:resourceId': {
       name: 'resource',
       component: Resource,
+      auth: true
+    },
+    '/messages': {
+      name: 'messages',
+      component: Messages,
       auth: true
     },
     /* 404路由 */
