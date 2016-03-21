@@ -14,7 +14,9 @@
                 {{{event.content}}}
             </div>
         </div>
-        <div class="load-more" v-if="hasMore" v-on:click="loadMore">{{loadingMore?'加载中...':'加载更多'}}</div>
+        <div class="loading-more" v-show="loadingMore">
+            <img :src="loadingSrc" alt="Loading"/>
+        </div>
         <div class="message" v-else>已无更多帖子</div>
     </div>
 </template>
@@ -22,6 +24,7 @@
 <script>
     import notie from 'notie'
     import $ from 'jquery'
+    import LoadingBubbles from 'loading-svg/loading-spin.svg'
     import {URL_EVENTS} from '../constants'
     export default {
         data () {
@@ -29,11 +32,23 @@
                 events: [],
                 hasMore: false,
                 refreshing: false,
-                loadingMore: false
+                loadingMore: false,
+                loadingSrc: LoadingBubbles
             }
         },
         ready(){
             this.load();
+            var self = this;
+            window.onscroll = function () {
+                if (self.hasMore) {
+                    var windowHeight = document.documentElement.clientHeight;
+                    var scroll = window.scrollY;
+                    var pageHeight = document.body.scrollHeight;
+                    if (windowHeight + scroll + 160 > pageHeight) {
+                        self.loadMore();
+                    }
+                }
+            }
         },
         methods: {
             load: function () {
@@ -139,14 +154,9 @@
         color: #888;
     }
 
-    .event-list .load-more {
+    .event-list .loading-more {
         padding: 12px;
-        color: #2b669a;
         text-align: center;
-    }
-
-    .event-list .load-more:hover {
-        background-color: #DDD
     }
 
     .event-list .message {
