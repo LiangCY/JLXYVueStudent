@@ -4,7 +4,7 @@
             <img :src="loadingSrc" alt="Loading icon"/>
         </div>
         <div v-else>
-            <div class="message" v-if="tasks.length==0">
+            <div class="message" v-if="resources.length==0">
                 当前学期没有课程资源
             </div>
             <div class="weui_cells weui_cells_access" v-else>

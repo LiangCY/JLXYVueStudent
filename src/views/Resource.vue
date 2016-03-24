@@ -85,11 +85,11 @@
         color: #555;
     }
 
-    article.resource {
+    .resource-page article.resource {
         padding: 8px 16px;
     }
 
-    a.download {
+    .resource-page a.download {
         margin: 12px 12px;
     }
 
