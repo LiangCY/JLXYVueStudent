@@ -10,7 +10,9 @@ const URL_TASKS = URL_BASE + '/tasks'
 const URL_TASK = URL_BASE + '/task/'
 const URL_RESOURCES = URL_BASE + '/resources'
 const URL_RESOURCE = URL_BASE + '/resource/'
-const URL_MESSAGES = URL_BASE + '/messages/'
+const URL_MESSAGES = URL_BASE + '/messages'
+const URL_MESSAGE = URL_BASE + '/message/'
+const URL_MESSAGE_REPLY = URL_BASE + '/message/reply'
 
 export {
   URL_LOGIN,
@@ -23,6 +25,8 @@ export {
   URL_TASK,
   URL_RESOURCES,
   URL_RESOURCE,
-  URL_MESSAGES
+  URL_MESSAGES,
+  URL_MESSAGE,
+  URL_MESSAGE_REPLY
 }
 

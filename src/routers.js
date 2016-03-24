@@ -11,6 +11,7 @@ import Task from './views/Task'
 import Resources from './views/Resources'
 import Resource from './views/Resource'
 import Messages from './views/Messages'
+import Message from './views/Message'
 
 export default function (router) {
   router.map({
@@ -66,6 +67,11 @@ export default function (router) {
     '/messages': {
       name: 'messages',
       component: Messages,
+      auth: true
+    },
+    '/message/:messageId': {
+      name: 'message',
+      component: Message,
       auth: true
     },
     /* 404路由 */

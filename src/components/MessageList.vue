@@ -1,24 +1,28 @@
 <template>
     <div class="message-list">
-        <div class="message-item" v-for="message in messages">
-            <div class="avatar">
-                <img :src="'http://219.219.117.114/avatar/'+message.userId">
-            </div>
-            <div class="content">
-                <div class="user">
-                    <span class="name">{{message.from||message.to}}</span>
+        <template v-for="message in messages">
+            <div class="message-item"
+                 v-link="{name:'message',params:{messageId:message._id}}">
+                <div class="avatar">
+                    <img :src="'http://219.219.117.114/avatar/'+message.userId">
+                </div>
+                <div class="content">
+                    <div class="user">
+                        <span class="name">{{message.from||message.to}}</span>
                 <span class="date">
                     {{message.createAt}}
                 </span>
+                    </div>
+                    <div class="title">
+                        {{{message.title}}}
+                    </div>
                 </div>
-                <div class="title">
-                    {{{message.title}}}
-                </div>
+                <div v-show="message.isNew" class="new"></div>
             </div>
-            <div v-show="message.isNew" class="new"></div>
-        </div>
+        </template>
     </div>
 </template>
+
 
 <script>
     import notie from 'notie'
